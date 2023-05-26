@@ -1,11 +1,13 @@
-<h3>The attack plan is as follows:</h3>
+<h3>Notebooks in the order they should be read</h3>
 
-1. Train a NN on the base, non-augmented images to obtain a baseline score
-2. Augment images as described in the augmentation notebook. For debugging purposes it's easier to do it like this than on the fly - during training.
-3. See how previously tried out approaches do with the augmented images.
-4. Train a denoising autoencoder to remove artifacts from the images. This step is actually very involved:
-    - first train a separate DAE for each noise category
-    - then train a classifier capable of recognizing noise category
-    - create a decision function that would be able to choose a fitting DAE
-5. Use the above in ML pipeline of the models trained in the first two steps.
-6. Build the final processing pipeline containing the best performing parts.
+1. eda - basic EDA code to get a grasp of the tabular data contents
+2. categorize_images - code for transforming the original downloaded dataset into something tf-feedable
+3. inception_resnet_v2_self_trained_on_200x150 - first attempts to train a preconfigured NN on suboptimal input
+4. inception_resnet_v2_self_trained_on_200x150_tabular - better input - added tabular data input
+5. roi_detection - a demonstration of ROI (region of interest) detection network used as a helper network that will 
+   be able to detect regions actually containing lesions; it's result will be used in the next networks
+6. inception_resnet_v2_self_trained_on_299x299 - first attempts to train a preconfigured NN on optimal input
+7. inception_resnet_v2_self_trained_on_299x299_tabular - better input and tabular data usage
+8. (unknown point number at this time, I've given it an 8 for now) - augmentation of the images with various artifacts - shadows, dirty lens effects, gaussian noise; training
+   denoising autoencoders for noise removal, then a noise classifier network that will be able to pick the correct
+   DAE; that's all for pre-processing; the results will be passed to the main cancer classifier
