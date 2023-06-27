@@ -10,8 +10,8 @@ def plot_history(
     # Loss
     plt.figure(figsize=(12, 6))
     plt.subplot(1, 2, 1)
-    plt.plot(hist.history[loss_key], label='Train Loss')
-    plt.plot(hist.history[val_loss_key], label='Validation Loss')
+    plt.plot(hist.history1[loss_key], label='Train Loss')
+    plt.plot(hist.history1[val_loss_key], label='Validation Loss')
     plt.title('Loss Evolution')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
@@ -19,8 +19,8 @@ def plot_history(
     plt.legend()
     # CIoU vals
     plt.subplot(1, 2, 2)
-    plt.plot(hist.history[metric_key], label='Train CIoU metric')
-    plt.plot(hist.history[val_metric_key], label='Validation CIoU metric')
+    plt.plot(hist.history1[metric_key], label='Train CIoU metric')
+    plt.plot(hist.history1[val_metric_key], label='Validation CIoU metric')
     plt.title('Metric Evolution')
     plt.xlabel('Epoch')
     plt.ylabel('Metric')

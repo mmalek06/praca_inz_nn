@@ -2,6 +2,9 @@ import os
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+import PIL.Image
+
+from tensorflow import keras
 
 from typing import Tuple
 
@@ -44,3 +47,22 @@ def load_and_preprocess_data(csv_file_path: str, img_dir: str) -> tf.data.Datase
         .batch(64) \
         .map(lambda img, coords, dots: (img, {'root': coords, 'dot': dots})) \
         .shuffle(1024)
+
+
+def get_images_array(paths: list[str]) -> np.ndarray:
+    rows = []
+
+    for path in paths:
+        with PIL.Image.open(path) as image:
+            rescaled_image = np.asarray(image) / 255.
+
+            rows.append(rescaled_image)
+
+    return np.array(rows)
+
+
+def get_name(path: str) -> str:
+    return '_'.join(
+        path
+            .split(os.sep)[-1]
+            .split('.')[-2])
