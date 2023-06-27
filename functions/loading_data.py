@@ -64,5 +64,5 @@ def get_images_array(paths: list[str]) -> np.ndarray:
 def get_name(path: str) -> str:
     return '_'.join(
         path
-            .split(os.sep)[-1]
-            .split('.')[-2])
+        .split(os.sep)[-1]
+        .split('.')[-2])

@@ -1,16 +1,20 @@
-<h3>Notebooks in the order they should be read</h3>
+<h3>Table of contents</h3>
+<br />
+Different phases of work require different code, so I've splitted them into folders:
 
-1. eda - basic EDA code to get a grasp of the tabular data contents
-2. resizing - the name says it all
-3. categorize_images - code for transforming the original downloaded dataset into something tf-feedable
-4. box_lesions - an algorithm that given the mask images is capable of generating the bounding box images; this will be
-   helpful for the ROI detection net
-5. inception_resnet_v2_self_trained_on_200x150 - first attempts to train a preconfigured NN on suboptimal input
-6. inception_resnet_v2_self_trained_on_200x150_tabular - more input - added tabular data input
-7. inception_resnet_v2_self_trained_on_200x150_augmentation - training a network on an augmented dataset
-8. roi_detection - a demonstration of ROI (region of interest) detection network used as a helper network that will 
-   be able to detect regions actually containing lesions; its result will be used in the next networks
-9. inception_resnet_v2_self_trained_on_299x299 - first attempts to train a preconfigured NN on optimal input
-10. (unknown point number at this time, I've given it an 8 for now) - augmentation of the images with various artifacts - shadows, dirty lens effects, gaussian noise; training
-    denoising autoencoders for noise removal, then a noise classifier network that will be able to pick the correct
-    DAE; that's all for pre-processing; the results will be passed to the main cancer classifier
+<h4>Image manipulation</h4>
+
+1. image_manipulation/resizing - used for resizing the images coming from the HAM10000 dataset to a 150x200 size;
+2. image_manipulation/resize_extended_dataset - same as the above but for the extended dataset;
+3. image_manipulation/augmentation - I thought some augmentation upfront could be useful, but during the 
+   experimentation it turned out what keras can do on the fly is enough. I'm leaving this notebook in case
+   further work reveals that it's actually required;
+4. image_manipulation/box_lesions + box_augmented_lesions - both notebooks are used to draw boxes around lesions - 
+   only for debugging purposes;
+5. image_manipulation/move_and_split - this one is for moving images around and splitting them into
+   training and validation sets. It's also only for the augmented images, so not really used;
+6. image_manipulation/categorize_images + categorize_extended_images - since the original datasets were not splitted
+   into categories, using the csv files attached to the dataset allowed me to properly label the images, so that
+   they are easily feedable to keras machinery.
+
+<h4>ROI</h4>
