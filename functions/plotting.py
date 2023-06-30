@@ -1,7 +1,30 @@
 import matplotlib.pyplot as plt
 
 
-def plot_history(
+def plot_single_output_history(hist) -> None:
+    plt.figure(figsize=(12, 6))
+    plt.subplot(1, 2, 1)
+    plt.plot(hist.history['loss'], label='Train Loss')
+    plt.plot(hist.history['val_loss'], label='Validation Loss')
+    plt.title('Loss Evolution')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.grid(True)
+    plt.legend()
+    plt.subplot(1, 2, 2)
+    plt.plot(hist.history['accuracy'], label='Train accuracy')
+    plt.plot(hist.history['val_accuracy'], label='Validation accuracy')
+    plt.title('Metric Evolution')
+    plt.xlabel('Epoch')
+    plt.ylabel('Metric')
+    plt.grid(True)
+    plt.legend()
+
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_multi_output_history(
         hist,
         loss_key='loss',
         val_loss_key='val_loss',

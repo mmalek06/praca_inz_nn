@@ -16,6 +16,8 @@ Different phases of work require different code, so I've splitted them into fold
 6. image_manipulation/categorize_images + categorize_extended_images - since the original datasets were not splitted
    into categories, using the csv files attached to the dataset allowed me to properly label the images, so that
    they are easily feedable to keras machinery.
+7. image_manipulation/layers - in case a Dataset is used to load the images, some useful operations of
+   ImageDataGenerator won't be available. Classes in this directory perform those operations on a dataset.
 
 <h4>ROI</h4>
 
