@@ -7,11 +7,10 @@ class FeaturewiseStdNormalization(keras.layers.Layer):
     """
     Standardizes the input so that it's of unit standard deviation.
     """
-
-    _std: tf.Tensor
-
     def __init__(self, **kwargs):
         super(FeaturewiseStdNormalization, self).__init__(**kwargs)
+
+        self._std = tf.zeros((1, 1))
 
     def call(self, inputs: tf.Tensor, *args, **kwargs) -> tf.Tensor:
         if self._std is None:

@@ -8,11 +8,10 @@ class FeaturewiseCenter(keras.layers.Layer):
     This class centers the whole dataset around 0. If there's a dominating color scheme
     or background then normalizing images feature-wise can help model converge better.
     """
-
-    _mean: tf.Tensor
-
     def __init__(self, **kwargs):
         super(FeaturewiseCenter, self).__init__(**kwargs)
+
+        self._mean = tf.zeros((1, 1))
 
     def call(self, inputs: tf.Tensor, *args, **kwargs) -> tf.Tensor:
         if self._mean is None:

@@ -12,12 +12,13 @@ def run_model(
         log_path: str,
         reduction_patience: int = 5,
         monitor: str = 'val_accuracy',
-        mode: str = 'max'):
+        mode: str = 'max',
+        stopping_patience: int = 10):
     MIN_DELTA = .001
     early_stopping = keras.callbacks.EarlyStopping(
         monitor=monitor,
         mode=mode,
-        patience=10,
+        patience=stopping_patience,
         min_delta=MIN_DELTA)
     reduce_lr = keras.callbacks.ReduceLROnPlateau(
         monitor=monitor,

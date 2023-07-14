@@ -1,6 +1,8 @@
 from tensorflow import keras
 from tensorflow.keras.applications.inception_resnet_v2 import InceptionResNetV2
 
+from typing import Callable
+
 
 def get_basic_model(height: int, width: int, num_classes: int) -> keras.Model:
     base_model = InceptionResNetV2(
@@ -46,7 +48,7 @@ def get_model_partly_frozen(height: int, width: int, num_classes: int) -> keras.
     return model
 
 
-def get_model_with_attention(height: int, width: int, num_classes: int) -> keras.Model:
+def get_model_with_attention(height: int, width: int, num_classes: int, freezer: Callable = None) -> keras.Model:
     def get_attention_module(prev: keras.layers.Layer) -> keras.layers.Layer:
         gap_layer = keras.layers.GlobalAveragePooling2D()(prev)
         gap_layer_res = keras.layers.Reshape((1, 1, 1536))(gap_layer)
@@ -60,6 +62,10 @@ def get_model_with_attention(height: int, width: int, num_classes: int) -> keras
         include_top=False,
         weights='imagenet',
         input_shape=(height, width, 3))
+
+    if freezer is not None:
+        freezer(base_model)
+
     attention_module = get_attention_module(base_model.output)
     flat = keras.layers.Flatten()(attention_module)
     locator_module = keras.layers.Dense(2048, activation='relu')(flat)
